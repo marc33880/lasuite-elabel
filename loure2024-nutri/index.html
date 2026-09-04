@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,follow">
+<meta name="referrer" content="no-referrer">
+<title>Louré 2024 &middot; Zutaten und Nährwerte</title>
+
+<style>
+@font-face{font-family:'Jost';src:url('../assets/jost-200.woff2') format('woff2');
+  font-weight:200;font-style:normal;font-display:swap}
+@font-face{font-family:'Jost';src:url('../assets/jost-300.woff2') format('woff2');
+  font-weight:300;font-style:normal;font-display:swap}
+@font-face{font-family:'Jost';src:url('../assets/jost-400.woff2') format('woff2');
+  font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Jost';src:url('../assets/jost-500.woff2') format('woff2');
+  font-weight:500;font-style:normal;font-display:swap}
+
+:root{
+  --shell:#F1EFEA; --paper:#E7E5DE; --ink:#2A2722; --ink-soft:#5D574F;
+  --gold:#AC967C; --gold-deep:#8C785F; --muted:#6A655C; --line:rgba(42,39,34,.13);
+  /* --muted war #8E897F = 3,0:1 auf Shell und damit unter WCAG AA. Auf einer
+     Seite, deren Inhalt Pflichtangabe ist, ist Lesbarkeit nicht optional.
+     #6A655C ist der hellste Wert, der auf Shell (5,1:1) UND Paper (4,6:1) AA
+     schafft und warm bleibt. */
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:'Jost',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  font-weight:300; font-size:16px; line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{
+  max-width:30rem; margin:14px auto; padding:40px 26px 46px;
+  background:var(--shell); border:1px solid rgba(42,39,34,.07); border-radius:2px;
+  box-shadow:0 1px 2px rgba(42,39,34,.03), 0 12px 34px rgba(42,39,34,.045);
+}
+@media (min-width:34rem){.wrap{margin:34px auto; padding:52px 44px 54px}}
+[data-lang]{display:none}
+html[lang="de"] [data-lang="de"],
+html[lang="en"] [data-lang="en"],
+html[lang="fr"] [data-lang="fr"]{display:revert}
+
+/* Kopf */
+.brand{text-align:center; margin-bottom:34px}
+.brand img{width:190px; max-width:62%; height:auto; display:inline-block}
+.eyebrow{
+  font-size:10px; letter-spacing:.28em; text-transform:uppercase;
+  color:var(--gold-deep); font-weight:500; text-align:center; margin:0 0 22px;
+}
+h1{
+  font-size:clamp(2.1rem,10vw,2.9rem); font-weight:200; letter-spacing:.015em;
+  line-height:1.08; margin:0; text-align:center;
+}
+.vintage{
+  font-size:14px; letter-spacing:.34em; color:var(--gold-deep);
+  text-align:center; margin:14px 0 0; font-weight:400;
+}
+.meta{
+  font-size:13px; letter-spacing:.06em; color:var(--muted);
+  text-align:center; margin:18px 0 0;
+}
+.rule{text-align:center; margin:32px 0 4px; color:var(--gold)}
+.fermate{width:60px; height:auto; display:inline-block; vertical-align:middle}
+
+/* Blöcke */
+section{margin-top:36px}
+h2{
+  font-size:10px; letter-spacing:.26em; text-transform:uppercase;
+  font-weight:500; color:var(--gold-deep); margin:0 0 16px;
+  padding-bottom:10px; border-bottom:1px solid var(--line);
+}
+.ingredients{font-size:15.5px; line-height:1.8; color:var(--ink-soft); margin:0}
+.ingredients p{margin:0 0 .6em}
+.ingredients p:last-child{margin:0}
+.ingredients strong{font-weight:500; color:var(--ink)}
+/* Zweiter und jeder weitere Absatz = Zusatzstoff-/Hinweiszeile. Sie steht
+   bewusst eigenstaendig und leiser, damit der Klassenname nicht wie eine
+   weitere Zutat gelesen wird. Das Allergen bleibt hervorgehoben (fett). */
+.ingredients p+p{
+  margin-top:15px; font-size:13px; letter-spacing:.05em; color:var(--ink-soft);
+}
+.ingredients p+p strong{font-size:14.5px; letter-spacing:0}
+
+/* Rebsorten: gestaffelte Baender wie in der Assemblage-Sektion der PDP */
+.strat{border:1px solid rgba(42,39,34,.14)}
+.glayer{
+  display:flex; align-items:center; gap:14px;
+  padding:0 clamp(14px,4vw,22px); color:#fff;
+}
+.glayer .pc{
+  font-weight:200; font-size:clamp(1.5rem,7vw,2.4rem); line-height:1;
+  min-width:2.4em; font-variant-numeric:tabular-nums;
+}
+.glayer .nm{font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; opacity:.94}
+
+/* Limitierung: dieselbe Typografie wie die Baender — grosse leichte Ziffer,
+   kleine Versalien daneben — nur ohne Flaeche, damit die Reihe ruhig bleibt. */
+/* Kein Flex: die Ziffer sitzt in einem [data-lang]-Span, dessen display von
+   der Sprachumschaltung gesetzt wird und jede Flex-Regel hier ueberschreibt.
+   Inline-Elemente stehen ohnehin auf gemeinsamer Grundlinie. */
+.limit{margin:0}
+.limit .n{
+  font-weight:200; font-size:clamp(1.9rem,8vw,2.5rem); line-height:1;
+  color:var(--ink); font-variant-numeric:tabular-nums; font-feature-settings:"tnum";
+}
+.limit .u{
+  margin-left:.6em; font-size:11.5px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--ink-soft);
+}
+
+/* Nährwerttabelle */
+table{width:100%; border-collapse:collapse; font-size:15px}
+caption{
+  caption-side:top; text-align:right; font-size:11px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--muted); padding-bottom:8px;
+}
+th,td{padding:11px 0; border-bottom:1px solid var(--line); vertical-align:baseline}
+tr:last-child th,tr:last-child td{border-bottom:0}
+th{text-align:left; font-weight:300; color:var(--ink-soft); padding-right:14px}
+td{
+  text-align:right; white-space:nowrap; font-weight:400;
+  font-variant-numeric:tabular-nums; font-feature-settings:"tnum";
+}
+tr.sub th{padding-left:16px; font-size:14px; color:var(--muted)}
+tr.energy th{color:var(--ink); font-weight:400}
+tr.energy td{font-size:16.5px}
+tr.trace th,tr.trace td{color:var(--muted)}
+
+/* Etikett */
+figure{margin:40px 0 0; text-align:center}
+figure img{width:min(60%,196px); height:auto; display:inline-block; opacity:.96}
+
+/* Weg zur Story: Kasten-Button, weil dahinter echter Mehrwert liegt */
+.cta{margin:40px 0 0}
+.cta a{
+  display:block; padding:16px 22px; border:1px solid var(--gold); background:transparent;
+  font-size:11px; letter-spacing:.17em; text-transform:uppercase;
+  font-weight:500; line-height:1.55; text-align:center;
+  color:var(--ink); text-decoration:none;
+  transition:background .3s, color .3s, border-color .3s;
+}
+.cta a:hover,.cta a:focus-visible{
+  background:var(--ink); border-color:var(--ink); color:var(--shell);
+}
+.cta .arrow{
+  display:inline-block; margin-left:.6em; color:var(--gold-deep);
+  transition:transform .4s, color .3s;
+}
+.cta a:hover .arrow,.cta a:focus-visible .arrow{
+  color:var(--gold); transform:translateX(4px);
+}
+
+/* Fuß */
+footer{
+  margin-top:46px; padding-top:22px; border-top:1px solid var(--line);
+  font-size:11.5px; line-height:1.75; color:var(--muted); text-align:center;
+}
+footer p{margin:0 0 5px}
+.langs{margin-top:18px; font-size:11px; letter-spacing:.2em; text-transform:uppercase}
+.langs button{
+  background:none; border:0; padding:4px 6px; cursor:pointer; color:var(--muted);
+  font:inherit; letter-spacing:inherit; text-transform:inherit;
+}
+.langs button[aria-current="true"]{color:var(--gold-deep); font-weight:500}
+.langs span{color:var(--line)}
+@media (prefers-contrast:more){:root{--muted:#5D574F}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="brand"></div>
+
+  <p class="eyebrow"><span data-lang="de">Zutaten und Nährwerte</span><span data-lang="en">Ingredients and nutrition</span><span data-lang="fr">Ingrédients et valeurs nutritionnelles</span></p>
+  <h1>Louré</h1>
+  <p class="vintage">2024</p>
+  <p class="meta"><span data-lang="de">0,75 l &middot; 12,5&nbsp;% vol</span><span data-lang="en">0.75 l &middot; 12.5&nbsp;% vol</span><span data-lang="fr">0,75 l &middot; 12,5&nbsp;% vol</span></p>
+  <div class="rule"><svg class="fermate" viewBox="0 0 255 166" fill="currentColor" fill-rule="evenodd" aria-hidden="true"><path d="M135,129 L127,130 L124,132 L119,130 L113,134 L109,140 L109,150 L108,152 L119,165 L125,165 L126,161 L135,162 L134,160 L135,155 L138,155 L140,157 L141,161 L143,162 L143,159 L146,156 L144,150 L150,148 L142,140 L142,138 L139,135 L139,132 L137,132Z M0,116 L0,141 L2,142 L4,149 L5,139 L3,138 L3,134 L7,126 L6,125 L6,119 L8,113 L8,107 L11,102 L13,93 L17,89 L19,82 L23,78 L25,73 L44,53 L49,51 L50,48 L54,44 L60,41 L64,37 L70,35 L73,32 L78,31 L90,24 L94,24 L104,21 L123,19 L125,17 L127,17 L128,19 L135,18 L142,21 L153,22 L159,25 L165,25 L172,29 L175,29 L184,35 L191,38 L212,52 L231,75 L230,78 L231,82 L233,85 L235,94 L240,103 L243,114 L245,142 L246,143 L245,151 L247,146 L247,141 L250,140 L251,143 L254,142 L254,140 L250,140 L248,138 L249,134 L254,135 L254,125 L253,128 L250,127 L250,119 L254,118 L254,117 L250,116 L251,113 L254,113 L254,111 L252,110 L252,104 L247,103 L242,87 L242,82 L236,69 L233,66 L229,57 L225,53 L224,50 L215,40 L212,38 L208,38 L201,33 L197,32 L196,28 L188,23 L189,20 L191,20 L192,22 L196,22 L198,26 L202,27 L210,33 L202,25 L198,24 L197,21 L192,17 L188,17 L185,13 L175,9 L170,10 L166,7 L162,7 L154,3 L150,3 L148,0 L111,0 L110,2 L99,3 L93,6 L79,10 L74,15 L70,16 L66,19 L62,19 L52,26 L45,33 L45,35 L42,38 L40,38 L30,49 L26,56 L26,58 L22,62 L21,66 L19,67 L17,73 L14,75 L9,86 L8,93 L5,97 L5,106 L2,115Z M176,14 L177,13 L181,14 L183,16 L183,18 L180,19 L176,16Z"/></svg></div>
+
+  <section>
+    <h2><span data-lang="de">Rebsorte</span><span data-lang="en">Grape variety</span><span data-lang="fr">Cépage</span></h2>
+    <div class="strat"><div class="glayer" style="height:clamp(86px,18vw,112px);background:#A2AC85;color:#2A2722"><span class="pc">100%</span><span class="nm">Sauvignon blanc</span></div></div>
+  </section>
+
+  <section>
+    <h2><span data-lang="de">Limitierung</span><span data-lang="en">Limited edition</span><span data-lang="fr">Édition limitée</span></h2>
+    <p class="limit"><span data-lang="de"><span class="n">1.211</span><span class="u">Flaschen</span></span><span data-lang="en"><span class="n">1,211</span><span class="u">bottles</span></span><span data-lang="fr"><span class="n">1&nbsp;211</span><span class="u">bouteilles</span></span></p>
+  </section>
+
+  <section>
+    <h2><span data-lang="de">Zutaten</span><span data-lang="en">Ingredients</span><span data-lang="fr">Ingrédients</span></h2>
+    <div class="ingredients"><span data-lang="de"><p>Trauben</p><p>Antioxidationsmittel: <strong>Sulfite</strong></p></span><span data-lang="en"><p>Grapes</p><p>Antioxidant: <strong>sulphites</strong></p></span><span data-lang="fr"><p>Raisins</p><p>Antioxydant&nbsp;: <strong>sulfites</strong></p></span></div>
+  </section>
+
+  <section>
+    <h2><span data-lang="de">Nährwerte</span><span data-lang="en">Nutrition</span><span data-lang="fr">Valeurs nutritionnelles</span></h2>
+    <table>
+      <caption><span data-lang="de">je 100 ml</span><span data-lang="en">per 100 ml</span><span data-lang="fr">pour 100 ml</span></caption>
+      <tbody><tr class="energy"><th><span data-lang="de">Brennwert</span><span data-lang="en">Energy</span><span data-lang="fr">Énergie</span></th><td><span data-lang="de">306 kJ / 74 kcal</span><span data-lang="en">306 kJ / 74 kcal</span><span data-lang="fr">306 kJ / 74 kcal</span></td></tr><tr class="trace"><th><span data-lang="de">Fett</span><span data-lang="en">Fat</span><span data-lang="fr">Matières grasses</span></th><td><span data-lang="de">0&nbsp;g</span><span data-lang="en">0&nbsp;g</span><span data-lang="fr">0&nbsp;g</span></td></tr><tr class="trace sub"><th><span data-lang="de">davon gesättigte Fettsäuren</span><span data-lang="en">of which saturates</span><span data-lang="fr">dont acides gras saturés</span></th><td><span data-lang="de">0&nbsp;g</span><span data-lang="en">0&nbsp;g</span><span data-lang="fr">0&nbsp;g</span></td></tr><tr><th><span data-lang="de">Kohlenhydrate</span><span data-lang="en">Carbohydrate</span><span data-lang="fr">Glucides</span></th><td><span data-lang="de">1,1&nbsp;g</span><span data-lang="en">1.1&nbsp;g</span><span data-lang="fr">1,1&nbsp;g</span></td></tr><tr class="sub"><th><span data-lang="de">davon Zucker</span><span data-lang="en">of which sugars</span><span data-lang="fr">dont sucres</span></th><td><span data-lang="de">0,2&nbsp;g</span><span data-lang="en">0.2&nbsp;g</span><span data-lang="fr">0,2&nbsp;g</span></td></tr><tr class="trace"><th><span data-lang="de">Eiweiß</span><span data-lang="en">Protein</span><span data-lang="fr">Protéines</span></th><td><span data-lang="de">&lt; 0,5&nbsp;g</span><span data-lang="en">&lt; 0.5&nbsp;g</span><span data-lang="fr">&lt; 0,5&nbsp;g</span></td></tr><tr class="trace"><th><span data-lang="de">Salz</span><span data-lang="en">Salt</span><span data-lang="fr">Sel</span></th><td><span data-lang="de">&lt; 0,01&nbsp;g</span><span data-lang="en">&lt; 0.01&nbsp;g</span><span data-lang="fr">&lt; 0,01&nbsp;g</span></td></tr></tbody>
+    </table>
+  </section>
+
+
+
+  <p class="cta"><span data-lang="de"><a href="https://chateaulasuite.com/products/loure-2024?view=story-2"><span>Mehr über Herkunft und Geschichte des Louré 2024</span><span class="arrow" aria-hidden="true">&rarr;</span></a></span><span data-lang="en"><a href="https://chateaulasuite.com/en/products/loure-2024?view=story-2"><span>More on the origin and story of Louré 2024</span><span class="arrow" aria-hidden="true">&rarr;</span></a></span><span data-lang="fr"><a href="https://chateaulasuite.com/fr/products/loure-2024?view=story-2"><span>En savoir plus sur l'origine et l'histoire du Louré 2024</span><span class="arrow" aria-hidden="true">&rarr;</span></a></span></p>
+
+  <footer>
+    <p>Ch&acirc;teau LaSuite aux Conseillans &middot; Bordeaux &middot; France</p>
+    <p><span data-lang="de">Pflichtangaben gemäß Verordnung (EU) 2021/2117.</span><span data-lang="en">Mandatory particulars pursuant to Regulation (EU) 2021/2117.</span><span data-lang="fr">Mentions obligatoires conformément au règlement (UE) 2021/2117.</span></p>
+    <p><span data-lang="de">Stand</span><span data-lang="en">Last updated</span><span data-lang="fr">Mise à jour</span> <span data-lang="de">04.08.2026</span><span data-lang="en">2026-08-04</span><span data-lang="fr">04/08/2026</span></p>
+    <p class="langs">
+      <button type="button" data-l="de">DE</button><span>&middot;</span
+      ><button type="button" data-l="en">EN</button><span>&middot;</span
+      ><button type="button" data-l="fr">FR</button>
+    </p>
+  </footer>
+
+</div>
+<script>
+(function(){
+  var ok=['de','en','fr'];
+  function set(l){
+    document.documentElement.lang=l;
+    var b=document.querySelectorAll('.langs button');
+    for(var i=0;i<b.length;i++){b[i].setAttribute('aria-current', b[i].dataset.l===l ? 'true':'false');}
+  }
+  var n=(navigator.language||'de').slice(0,2).toLowerCase();
+  set(ok.indexOf(n)>=0 ? n : 'en');
+  document.addEventListener('click',function(e){
+    var t=e.target.closest && e.target.closest('.langs button');
+    if(t){set(t.dataset.l);}
+  });
+})();
+</script>
+</body>
+</html>
