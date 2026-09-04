@@ -1,0 +1,15 @@
+name = "lasuite-elabel"
+main = "src/worker.js"
+compatibility_date = "2026-01-01"
+
+# Statische Seiten aus dist/ werden mit dem Worker ausgeliefert.
+[assets]
+directory = "./dist"
+binding = "ASSETS"
+not_found_handling = "none"
+
+# Wildcard-Route: jede neue Wein-Subdomain funktioniert ohne weiteren
+# DNS- oder Zertifikatsschritt, sobald der Slug in Shopify eingetragen ist.
+[[routes]]
+pattern = "*.lasuite.vin/*"
+zone_name = "lasuite.vin"

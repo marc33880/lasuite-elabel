@@ -1,0 +1,6 @@
+dist/
+assets/*.png
+assets/*.jpg
+__pycache__/
+*.pyc
+vorschau-*.html

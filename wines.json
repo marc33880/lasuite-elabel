@@ -1,0 +1,50 @@
+[
+  {
+    "slug": "loure2024-nutri",
+    "name": "Louré",
+    "vintage": "2024",
+    "grapes": "100% Sauvignon blanc",
+    "bottles": 1211,
+    "alcohol_vol": 12.5,
+    "sugars_g_l": 1.5,
+    "acid_g_l": 5.4,
+    "energy_kcal_override": null,
+    "ingredients": {
+      "de": "<p>Trauben</p><p>Antioxidationsmittel: <strong>Sulfite</strong></p>",
+      "en": "<p>Grapes</p><p>Antioxidant: <strong>sulphites</strong></p>",
+      "fr": "<p>Raisins</p><p>Antioxydant&nbsp;: <strong>sulfites</strong></p>"
+    },
+    "story_url": {
+      "de": "https://chateaulasuite.com/products/loure-2024?view=story-2",
+      "en": "https://chateaulasuite.com/en/products/loure-2024?view=story-2",
+      "fr": "https://chateaulasuite.com/fr/products/loure-2024?view=story-2"
+    },
+    "logo": "https://cdn.shopify.com/s/files/1/0908/1690/5594/files/Logo_LaSuite_transparent_final.png?v=1753997357",
+    "bottle": "https://cdn.shopify.com/s/files/1/0908/1690/5594/files/Loure2024.jpg?v=1780645002",
+    "producer": "Ch&acirc;teau LaSuite aux Conseillans &middot; Bordeaux &middot; France"
+  },
+  {
+    "slug": "le-ton-blanc-var5-nutri",
+    "name": "Le Ton blanc",
+    "vintage": "Variation 5",
+    "grapes": "100% Sauvignon blanc",
+    "bottles": 1389,
+    "alcohol_vol": 13.0,
+    "sugars_g_l": 1.5,
+    "acid_g_l": 5.4,
+    "energy_kcal_override": null,
+    "ingredients": {
+      "de": "<p>Trauben</p><p>Antioxidationsmittel: <strong>Sulfite</strong></p>",
+      "en": "<p>Grapes</p><p>Antioxidant: <strong>sulphites</strong></p>",
+      "fr": "<p>Raisins</p><p>Antioxydant&nbsp;: <strong>sulfites</strong></p>"
+    },
+    "story_url": {
+      "de": "https://chateaulasuite.com/products/le-ton-variation-5-blanc?view=story-2",
+      "en": "https://chateaulasuite.com/en/products/le-ton-variation-5-blanc?view=story-2",
+      "fr": "https://chateaulasuite.com/fr/products/le-ton-variation-5-blanc?view=story-2"
+    },
+    "logo": "https://cdn.shopify.com/s/files/1/0908/1690/5594/files/Logo_LaSuite_transparent_final.png?v=1753997357",
+    "bottle": "https://cdn.shopify.com/s/files/1/0908/1690/5594/files/VorlageLeTonblancVariation5.jpg?v=1769260409",
+    "producer": "Ch&acirc;teau LaSuite aux Conseillans &middot; Bordeaux &middot; France"
+  }
+]
