@@ -1,9 +1,9 @@
 # E-Label lasuite.vin — Dokumentation und Betriebsanleitung
 
-**Stand:** 04.09.2026 · **Status:** live und vollständig für Louré 2024 und
-Le Ton blanc Variation 5 — am 04.09.2026 im Browser über die gedruckten
-QR-Adressen geprüft: Wortmarke, Fermate, Rebsorte, Limitierung, Zutaten,
-Nährwerte, Etikett und Button erscheinen wie vorgesehen.
+**Stand:** 22.09.2026 · **Status:** live und vollständig für Louré 2024 und
+Le Ton blanc Variation 5 — über die gedruckten QR-Adressen geprüft: Wortmarke,
+Fermate, Rebsorte, Limitierung, Zutaten, Nährwerte, Etikett und Button
+erscheinen wie vorgesehen.
 
 Diese Datei ist die vollständige Grundlage für jeden späteren Chat. Sie ist
 absichtlich ausführlich: der Vorgang wiederholt sich über Jahre, und der QR-Code
@@ -38,7 +38,7 @@ einmal abhandenkommt.
 7. **Pflicht und Kür getrennt halten**, Freiwilliges steht davor, nie in der
    Nährwerttabelle (Abschnitt 4).
 
-### Der eine offene Punkt (Stand 04.09.2026)
+### Der eine offene Punkt (Stand 22.09.2026)
 
 **Nährwerte der beiden Live-Seiten beruhen teilweise auf Platzhaltern** —
 echte Analysewerte für Restzucker und Säure fehlen in Shopify, beim Le Ton
@@ -48,9 +48,10 @@ und geprüft.
 
 ### Der Ablauf für einen neuen Wein
 
-Metafelder in Shopify füllen → Slug festlegen → Etikettenbild besorgen →
-Zahlen gegen das Etikett prüfen → Seite bauen → Marc lädt ins Repo →
-Marc setzt die Weiterleitung → nachprüfen. Ausführlich in Abschnitt 5.
+Metafelder in Shopify füllen → Slug festlegen → Etikettenbild von Marc
+erbitten → Zahlen gegen das Etikett prüfen → Seite bauen → **selbst** über
+Marcs Chrome ins Repo hochladen → Marc setzt die Weiterleitung → nachprüfen.
+Ausführlich in Abschnitt 5.
 
 ### Wie diese Datei zu lesen ist
 
@@ -252,6 +253,59 @@ und `custom.harvest_year >= 2024`. Fehlt `elabel.alcohol_vol`, wird er
 Fehlt eine, greift die deutsche Fassung. Alle übrigen Wortlaute stehen fest im
 Generator, nicht in Shopify.
 
+### Wie die Daten in `wines.json` kommen — der eine gültige Weg
+
+**Über die Shopify-MCP-Verbindung abfragen und `wines.json` von Hand
+ergänzen.** Im Container liegt **kein** `SHOPIFY_TOKEN`; `fetch_shopify.py`
+ist der Weg für eine Umgebung mit echtem Zugang und läuft hier nicht. Dasselbe
+gilt für `fetch_assets.py` — es holt Bilder vom Shopify-CDN, wohin es aus dem
+Container keine Verbindung gibt. **Beide Skripte in dieser Umgebung nicht
+aufrufen**, sie bleiben als Dokumentation des Datenmodells liegen.
+
+Ein Eintrag in `wines.json` sieht so aus:
+
+```json
+{
+  "slug": "caprice-2025-nutri",
+  "name": "Caprice",
+  "vintage": "2025",
+  "grapes": "100% Alvarinho",
+  "bottles": 101,
+  "alcohol_vol": 12.5,
+  "sugars_g_l": 1.5,
+  "acid_g_l": 5.4,
+  "energy_kcal_override": null,
+  "ingredients": {
+    "de": "<p>Trauben</p><p>Antioxidationsmittel: <strong>Sulfite</strong></p>",
+    "en": "<p>Grapes</p><p>Antioxidant: <strong>sulphites</strong></p>",
+    "fr": "<p>Raisins</p><p>Antioxydant&nbsp;: <strong>sulfites</strong></p>"
+  },
+  "story_url": {
+    "de": "https://chateaulasuite.com/products/<handle>?view=story-2",
+    "en": "https://chateaulasuite.com/en/products/<handle>?view=story-2",
+    "fr": "https://chateaulasuite.com/fr/products/<handle>?view=story-2"
+  },
+  "logo": "", "bottle": "",
+  "producer": "Ch&acirc;teau LaSuite aux Conseillans &middot; Bordeaux &middot; France"
+}
+```
+
+`logo` und `bottle` bleiben leer — `build.py` setzt sie im
+Produktionslauf selbst, sofern die Bilder in `assets/` liegen.
+
+### Pflicht, Kür und Platzhalter — welcher Wert wie streng ist
+
+| Feld | Ohne diesen Wert | Platzhalter erlaubt? |
+|---|---|---|
+| `alcohol_vol` | **keine Seite bauen** — der Wein wird übersprungen | **nie** |
+| `sugars_g_l` | Brennwert und Kohlenhydrate werden zu niedrig | **nie** |
+| `acid_g_l` | Rechnung bleibt gültig, nur etwas grober (Säure trägt ~3 kcal/g) | fehlen darf er, raten nicht |
+| `energy_kcal_100ml` | nichts — nur bei Laborwert setzen | – |
+
+`energy_kcal_100ml` landet in `wines.json` als `energy_kcal_override` und
+ersetzt **ausschließlich** den Brennwert (kcal, und kJ daraus mit Faktor
+4,184). Kohlenhydrate und Zucker werden weiterhin gerechnet.
+
 ### Slug-Konvention
 
 ```
@@ -412,6 +466,11 @@ gedämpft `#6A655C`, Linien `rgba(42,39,34,.13)`. Karte `max-width: 30rem`.
 breit, Gold. **Kein Nachbau** — sonst driften Etikett und Website auseinander.
 Ändert sich die Marke, wird der Pfad neu kopiert, nicht neu gezeichnet.
 
+**Das Etikett** kommt als JPEG, Zielname `assets/<slug>.jpg`. Die bisherigen
+sind 792 × 900 px bei rund 50 KB — das reicht, größer bringt nichts, weil das
+Bild mit `min(60%, 196px)` dargestellt wird. Die Datei unverändert übernehmen,
+nicht neu komprimieren.
+
 **Das Etikett** wird mit `min(60%, 196px)` dargestellt. Fehlt die Bilddatei,
 entfällt das Element ganz — ein Icon für ein kaputtes Bild untergräbt das
 Vertrauen mehr als eine fehlende Abbildung.
@@ -467,8 +526,9 @@ Die GitHub-Verbindung darf nicht schreiben — **Marcs Chrome aber schon.** Am
 04.09.2026 wurde damit die komplette Reparatur ohne einen einzigen Klick von
 Marc ausgeführt. Das Rezept:
 
-1. `mcp__claude-in-chrome__select_browser` mit der deviceId aus
-   `list_connected_browsers` (vorher die vorgeschriebene Rückfrage stellen).
+1. `list_connected_browsers`, dann **Marc fragen, über welchen Browser
+   gearbeitet werden soll** (das ist vorgeschrieben, auch wenn nur einer
+   verbunden ist), dann `select_browser` mit der deviceId.
 2. Zur Upload-Adresse des Zielordners navigieren — sie lässt sich direkt
    aufrufen, Navigationsklicks entfallen:
    `https://github.com/marc33880/lasuite-elabel/upload/main/<ordner>`
@@ -514,11 +574,14 @@ zeitnah ausliefern.
 5. **Seite bauen** — erst nachdem Logo und Etikett in `assets/` liegen, sonst
    fehlen die Bildverweise im HTML (siehe Abschnitt 6). Gegenprobe: die Datei
    muss `<div class="brand"><img` und `<figure><img` enthalten.
-   Dann `<slug>/index.html` und `assets/<slug>.jpg` **an Marc ausliefern**;
-   hochladen muss er, Claude hat keinen Schreibzugriff. Nichts an den
-   bestehenden Dateien ändern.
+   Dann **genau drei Dinge** hochladen, über Marcs Chrome nach dem Rezept in
+   Abschnitt 4b: `<slug>/index.html`, `assets/<slug>.jpg` und die neu gebaute
+   `index.html` der Übersicht (sie listet jetzt einen Wein mehr).
+   **Nicht** den ganzen Inhalt von `dist/` — `build.py` schreibt dort auch die
+   bestehenden Wein-Seiten neu, und die sollen unangetastet bleiben. Das
+   README im Zweig `source` beschreibt den Erstaufbau, nicht den Normalfall.
 6. **Weiterleitung bei United Domains** anlegen: Subdomain `<slug>`, Ziel
-   `https://marc33880.github.io/lasuite-elabel/<slug>/`, Typ **HTTP 301/302**,
+   `https://elabel.lasuite.vin/<slug>/`, Typ **HTTP 301/302**,
    **keine** Frame-Weiterleitung, Schrägstrich am Ende. Das macht Marc.
 7. **Nachprüfen:** die gedruckte Adresse abrufen, den Inhalt gegenlesen,
    Etikett und Schrift im Browser ansehen, an der echten Flasche scannen.
@@ -604,6 +667,7 @@ diese Kopplungen festhält. Der fertige Text lag in `REGISTER-EINTRAG.md`.
 | `--gold-deep` in kleiner Typografie | ~3,35:1, unter WCAG AA. Bewusst nicht geändert. |
 | Szenenbilder Louré | `Loure_freigestellt.png`, `Loure_Tischszene.png` — laut Marc nicht betroffen. |
 | Schreibzugriff auf das Repo | **Geklärt am 04.09.2026: die GitHub-Verbindung kann nur lesen** (`403` auf beiden Wegen). Der Browser-Umweg in Abschnitt 4b ersetzt ihn vollständig. |
+| `REGISTER-EINTRAG.md` ist veraltet | Der Entwurf für das Konsistenzregister beschreibt noch die verworfene Cloudflare-Architektur. **Vor dem Übertragen korrigieren:** ausgeliefert wird über GitHub Pages unter `elabel.lasuite.vin`, mit Weiterleitung je Wein bei United Domains. |
 | Zweig `source` ist flachgedrückt | Beim Hochladen ging die Ordnerstruktur verloren: die Schriftdateien liegen neben `build.py` statt in `assets/`, ebenso `worker.js` (gehört nach `src/`) und `deploy.yml` (gehört nach `.github/workflows/`). Zusätzlich liegt dort eine leere Datei `download`. Inhaltlich vollständig, aber vor einem `build.py`-Lauf muss einmal einsortiert werden. |
 
 ---

@@ -10,12 +10,15 @@ gedruckte E-Label driftet still auseinander.
 
 ## E-Label lasuite.vin — externes Projekt mit Rückkopplung ins Theme
 
-**Angelegt:** 04.08.2026
+**Angelegt:** 04.08.2026 · **Stand:** 22.09.2026
 **Repo:** `marc33880/lasuite-elabel`
 **Was es ist:** statische Pflichtangaben-Seiten (Zutaten und Nährwerte nach
-VO (EU) 2021/2117), eine Subdomain je Wein unter `lasuite.vin`, gebaut aus den
-Shopify-Stammdaten und ausgeliefert von einem Cloudflare Worker. Kein Liquid,
-kein Shopify zur Laufzeit — Shopify ist dort nur Redaktionswerkzeug.
+VO (EU) 2021/2117), eine gedruckte Subdomain je Wein unter `lasuite.vin`,
+gebaut aus den Shopify-Stammdaten. Ausgeliefert über **GitHub Pages** unter
+`elabel.lasuite.vin`; die Wein-Subdomains zeigen per Weiterleitung bei United
+Domains dorthin. Kein Liquid, kein Shopify zur Laufzeit — Shopify ist dort nur
+Redaktionswerkzeug. (Eine frühere Fassung sah einen Cloudflare Worker vor; der
+wurde verworfen.)
 
 **Vier Kopplungen. Wer im Theme daran arbeitet, zieht sie dort nach:**
 

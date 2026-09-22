@@ -1,8 +1,44 @@
 # Übergabeprompt — neue E-Label-Seiten anlegen
 
-Diesen Text vollständig in einen neuen Chat kopieren und
-`E-LABEL_DOKUMENTATION.md` als Anhang mitgeben. Die Weine unten bei „Auftrag"
-eintragen.
+Diesen Text vollständig in einen neuen Chat kopieren und die Weine unten bei
+„Auftrag" eintragen. **Mehr braucht es nicht** — die Anleitung holt sich der
+Chat selbst aus dem Repository.
+
+---
+
+## SCHRITT NULL: LIES ZUERST DIE ANLEITUNG
+
+Die vollständige Betriebsanleitung liegt im Repository, im Zweig `source`:
+
+```
+marc33880/lasuite-elabel · Zweig source · E-LABEL_DOKUMENTATION.md
+```
+
+**Hol sie dir jetzt über die GitHub-Verbindung und lies sie ganz, bevor du
+irgendetwas anderes tust.** Sie ist die verbindliche Grundlage: Aufbau,
+Datenfelder, Wortlaute, Farbtabellen, Nährwertformeln, Rechtslage und die
+Fallstricke, die schon einmal Zeit gekostet haben. Alles Weitere in diesem
+Prompt ist nur die Kurzfassung.
+
+Im selben Zweig liegen `build.py` (der Generator), `nutrition.py` (die
+Nährwertrechnung mit Selbsttest), `wines.json` (letzter Datenstand) und
+`URLS.md` (die Adressen je Wein).
+
+**Nicht verwenden:** `fetch_shopify.py` und `fetch_assets.py` laufen in dieser
+Umgebung nicht (kein Shopify-Token, kein Netz zum CDN) — Daten kommen über die
+Shopify-MCP-Verbindung, Bilder von Marc. `worker.js`, `wrangler.toml` und
+`deploy.yml` gehören zu verworfenen Varianten und bleiben unangetastet. Die
+beiden `index.html`-Dateien im Wurzelverzeichnis dieses Zweigs sind Altlasten
+eines Upload-Unfalls — **nicht als Vorlage nehmen.** Die gültige Vorlage ist
+immer eine Wein-Seite aus dem Zweig `main`.
+
+**Achtung:** der Zweig ist flachgedrückt —
+die Schriftdateien liegen neben `build.py` statt in `assets/`, `worker.js`
+gehört nach `src/`, `deploy.yml` nach `.github/workflows/`. Vor einem
+`build.py`-Lauf einmal einsortieren.
+
+Wenn die GitHub-Verbindung fehlt, sag es Marc sofort und bitte ihn um
+`E-LABEL_DOKUMENTATION.md` als Anhang — ohne sie nicht weiterarbeiten.
 
 ---
 
@@ -35,11 +71,11 @@ Erzeugung, nicht die Abfüllung. Ab Jahrgang 2024 gilt die Pflicht ausnahmslos;
 frühere Jahrgänge sind befreit, auch wenn sie später abgefüllt werden. Regel:
 `custom.harvest_year >= 2024`. Siehe Abschnitt 2b der Dokumentation.
 
-**Nährwerte:** die `elabel`-Felder für Restzucker und Säure waren am 04.09.2026
-bei allen Weinen leer. Ohne echte Analysewerte gibt es keine gültige
-Nährwertdeklaration — **niemals Platzhalter verwenden**, sondern bei Marc
-anfordern. Bei den zwei bestehenden Seiten ist genau das passiert und muss
-nachgeholt werden.
+**Nährwerte:** die `elabel`-Felder waren zuletzt bei fast allen Weinen leer.
+**Alkohol und Restzucker niemals raten** — ohne sie keine gültige Deklaration,
+also bei Marc anfordern und notfalls warten. Die Gesamtsäure darf fehlen, die
+Rechnung wird dann nur etwas grober; raten aber auch dort nicht. Bei den zwei
+bestehenden Seiten wurde geraten, das ist der offene Altlastenpunkt.
 
 ---
 
@@ -55,10 +91,7 @@ VO (EU) 2021/2117) und veröffentliche sie:
 - Sarabande 2024
 ```
 
-Die beiliegende `E-LABEL_DOKUMENTATION.md` ist die verbindliche Grundlage.
-Lies sie zuerst vollständig. Sie beschreibt Aufbau, Datenfelder, Wortlaute,
-Farbtabellen, Nährwertformeln und die Fallstricke. Weiche davon nicht ab, ohne
-es zu begründen und nachzufragen.
+Weiche von der Dokumentation nicht ab, ohne es zu begründen und nachzufragen.
 
 ## Was schon steht
 
@@ -149,10 +182,13 @@ Seiten ohne Wortmarke und Etikett live. Prüfe vor dem Ausliefern:
 * Limitierungs-Block ohne Flexbox (siehe Fallstrick in der Dokumentation)
 * Nährwerte gegengerechnet
 
-**Schritt 6 — Hochladen.** Über Marcs Chrome, nach dem Rezept in Abschnitt 4b:
+**Schritt 6 — Hochladen.** Über Marcs Chrome, nach dem Rezept in Abschnitt 4b.
+Frag ihn vorher, über welchen Browser gearbeitet werden soll — das ist auch
+dann vorgeschrieben, wenn nur einer verbunden ist. Dann:
 je Zieldatei ein eigener Ordner im Container mit der Datei unter ihrem
 **endgültigen Namen**, dann die Upload-Adresse des Zielordners direkt aufrufen.
-Hochzuladen sind `<slug>/index.html`, `assets/<slug>.jpg` und die aktualisierte
+Hochzuladen sind **genau drei Dinge**: `<slug>/index.html`,
+`assets/<slug>.jpg` und die aktualisierte
 `index.html` der Übersicht. Prüfe nach jedem Commit über die
 GitHub-Leseverbindung die Dateigröße, **bevor** Marc die Weiterleitung setzt.
 Wenn der Browser nicht verbunden ist, liefere stattdessen ein ZIP und sag ihm:
