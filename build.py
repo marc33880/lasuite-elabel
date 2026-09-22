@@ -601,11 +601,13 @@ def render_index(wines, apath=""):
        (apath + "logo.png") if apath else wines[0]["logo"], FERMATE, items)
 
 
-# Ort, an dem die fertigen Seiten liegen. Alles darunter ist Pfad + Slug,
-# deshalb laesst sich der Ort wechseln, ohne dass eine Seite angepasst werden
-# muss. Setzbar per Umgebungsvariable, damit URLS.md immer stimmt.
+# Ort, an dem die fertigen Seiten liegen. Seit 22.09.2026 eine eigene
+# Subdomain (CNAME auf GitHub Pages) statt der github.io-Adresse: damit haengt
+# nur noch EIN DNS-Eintrag am Hoster. Zieht das Hosting um, aendert sich dieser
+# Eintrag — die gedruckten QR-Adressen und die Weiterleitungen bleiben.
+# Setzbar per Umgebungsvariable, damit URLS.md immer stimmt.
 HOST_BASE = os.environ.get(
-    "HOST_BASE", "https://marc33880.github.io/lasuite-elabel").rstrip("/")
+    "HOST_BASE", "https://elabel.lasuite.vin").rstrip("/")
 
 
 def write_urls(wines):

@@ -1,7 +1,9 @@
 # E-Label lasuite.vin — Dokumentation und Betriebsanleitung
 
-**Stand:** 04.09.2026 · **Status:** live für Louré 2024 und Le Ton blanc Variation 5
-(Bildverweise am 04.09.2026 nachgereicht — siehe Abschnitt 6)
+**Stand:** 04.09.2026 · **Status:** live und vollständig für Louré 2024 und
+Le Ton blanc Variation 5 — am 04.09.2026 im Browser über die gedruckten
+QR-Adressen geprüft: Wortmarke, Fermate, Rebsorte, Limitierung, Zutaten,
+Nährwerte, Etikett und Button erscheinen wie vorgesehen.
 
 Diese Datei ist die vollständige Grundlage für jeden späteren Chat. Sie ist
 absichtlich ausführlich: der Vorgang wiederholt sich über Jahre, und der QR-Code
@@ -16,7 +18,7 @@ einmal abhandenkommt.
 | | |
 |---|---|
 | **Was** | Pflichtangaben nach VO (EU) 2021/2117: Zutaten und Nährwerte, eine Seite je Wein, dreisprachig |
-| **Wo** | `https://<slug>.lasuite.vin/` → weitergeleitet auf `https://marc33880.github.io/lasuite-elabel/<slug>/` |
+| **Wo** | `https://<slug>.lasuite.vin/` → weitergeleitet auf `https://elabel.lasuite.vin/<slug>/` |
 | **Repo** | `marc33880/lasuite-elabel`, öffentlich · Zweig `main` = die Seiten · Zweig `source` = der Bauplan |
 | **Live** | Louré 2024, Le Ton blanc Variation 5 |
 | **Aufwand je neuer Wein** | ca. 10 Minuten, ein- bis zweimal im Jahr |
@@ -40,7 +42,9 @@ einmal abhandenkommt.
 
 **Nährwerte der beiden Live-Seiten beruhen teilweise auf Platzhaltern** —
 echte Analysewerte für Restzucker und Säure fehlen in Shopify, beim Le Ton
-auch der Alkoholgehalt. Details in Abschnitt 8. Alles Übrige ist erledigt.
+auch der Alkoholgehalt (die 13,0 % vol sind geschätzt). Daraus werden Brennwert
+und Kohlenhydrate gerechnet. Details in Abschnitt 8. Alles Übrige ist erledigt
+und geprüft.
 
 ### Der Ablauf für einen neuen Wein
 
@@ -105,9 +109,12 @@ QR-Code auf dem Glas
 https://<slug>.lasuite.vin/            Subdomain bei United Domains
    │                                   HTTP-Weiterleitung (302)
    ▼
-https://marc33880.github.io/lasuite-elabel/<slug>/
-                                       GitHub Pages, statisches HTML
+https://elabel.lasuite.vin/<slug>/     eigene Subdomain, CNAME auf GitHub
+                                       Pages; statisches HTML
 ```
+
+**Alles bleibt innerhalb von `lasuite.vin`.** Die `github.io`-Adresse taucht
+seit dem 22.09.2026 nirgends mehr auf.
 
 **Kein Cloudflare, keine Automatik, kein Server.** Beides war in einer früheren
 Fassung vorgesehen und wurde wieder entfernt: Cloudflare nur, weil zunächst an
@@ -136,6 +143,30 @@ assets/<slug>.jpg                 Etikett je Wein
 .nojekyll                         leer; verhindert Jekyll-Verarbeitung
 ```
 
+### Die eigene Adresse `elabel.lasuite.vin`
+
+Eingerichtet am 22.09.2026. Vorher liefen die Seiten unter
+`marc33880.github.io/lasuite-elabel/…` — unprofessionell, und vor allem hing
+GitHub damit fest in jeder einzelnen Weiterleitung.
+
+Aufbau:
+
+| Wo | Eintrag |
+|---|---|
+| DNS bei United Domains | `elabel` · CNAME · `marc33880.github.io` |
+| GitHub | *Settings → Pages → Custom domain* = `elabel.lasuite.vin`, **Enforce HTTPS** aktiv |
+| Im Repo | Datei `CNAME` mit dem Inhalt `elabel.lasuite.vin` — von GitHub angelegt, **nicht löschen** |
+
+Das Zertifikat stellt GitHub kostenlos aus und erneuert es selbst.
+
+**Der eigentliche Gewinn:** nur noch ein einziger DNS-Eintrag zeigt auf GitHub.
+Zieht das Hosting je um, ändert sich dieser Eintrag — die gedruckten
+QR-Adressen und die Weiterleitungen je Wein bleiben unberührt.
+
+**Grenze:** GitHub Pages erlaubt **eine** eigene Domain je Repository. Die
+Wein-Subdomains bleiben deshalb Weiterleitungen; sie können nicht selbst auf
+GitHub zeigen.
+
 **Alle Pfade in den Seiten sind relativ** (`../assets/…`). Das ist zwingend:
 die Seiten liegen bei GitHub Pages in einem Unterordner, ein absoluter Pfad
 (`/assets/…`) zeigte dort ins Leere. Relativ funktionieren dieselben Dateien
@@ -145,12 +176,12 @@ unter einer Subdomain, in einem Unterordner und lokal geöffnet.
 
 | Wein | Slug | Gedruckte Adresse | Ziel |
 |---|---|---|---|
-| Louré 2024 | `loure2024-nutri` | `https://loure2024-nutri.lasuite.vin/` | `…/lasuite-elabel/loure2024-nutri/` |
-| Le Ton blanc Variation 5 | `le-ton-blanc-var5-nutri` | `https://le-ton-blanc-var5-nutri.lasuite.vin/` | `…/lasuite-elabel/le-ton-blanc-var5-nutri/` |
+| Louré 2024 | `loure2024-nutri` | `https://loure2024-nutri.lasuite.vin/` | `https://elabel.lasuite.vin/loure2024-nutri/` |
+| Le Ton blanc Variation 5 | `le-ton-blanc-var5-nutri` | `https://le-ton-blanc-var5-nutri.lasuite.vin/` | `https://elabel.lasuite.vin/le-ton-blanc-var5-nutri/` |
 
-Geprüft am 04.09.2026: beide Weiterleitungen antworten mit `302`, HTTPS greift
-ohne Zertifikatsfehler. **Ein manueller Eingriff des United-Domains-Supports war
-nicht nötig.**
+Geprüft am 22.09.2026: beide Weiterleitungen antworten mit `302` auf die neue
+Zieladresse, HTTPS greift ohne Zertifikatsfehler. **Ein manueller Eingriff des
+United-Domains-Supports war nie nötig.**
 
 Die Weiterleitung der Startseite `lasuite.vin` → `chateaulasuite.com` bleibt
 bewusst bestehen (SEO). Sie stört die Subdomain-Einträge nicht. Hinweis: sie
@@ -430,10 +461,38 @@ Versehen, das man umgehen könnte:
 | Container-Shell | Python, Pillow, Playwright, Seiten bauen | kein Netz zum Shopify-CDN |
 | Rechner-Bridge | Dateien auf Marcs Rechner lesen und schreiben | ebenfalls kein Netz |
 
-**Daraus folgt der Arbeitsteilung:** Claude baut, prüft und liefert die
-Dateien; Marc lädt sie über die GitHub-Web-Oberfläche hoch und setzt die
-Weiterleitung. Das Etikettenbild kommt von Marc, weil kein Werkzeug ans CDN
-kommt.
+### Der Umweg, der den GitHub-Teil doch automatisierbar macht
+
+Die GitHub-Verbindung darf nicht schreiben — **Marcs Chrome aber schon.** Am
+04.09.2026 wurde damit die komplette Reparatur ohne einen einzigen Klick von
+Marc ausgeführt. Das Rezept:
+
+1. `mcp__claude-in-chrome__select_browser` mit der deviceId aus
+   `list_connected_browsers` (vorher die vorgeschriebene Rückfrage stellen).
+2. Zur Upload-Adresse des Zielordners navigieren — sie lässt sich direkt
+   aufrufen, Navigationsklicks entfallen:
+   `https://github.com/marc33880/lasuite-elabel/upload/main/<ordner>`
+   (ohne `<ordner>` für die oberste Ebene; für den Bauplan-Zweig
+   `…/upload/source/`).
+3. `find` nach dem Datei-Eingabefeld, dann `file_upload`.
+   **Zwei Bedingungen:** der Pfad muss im Container liegen
+   (`/mnt/user-data/outputs/…`) — Windows-Pfade werden abgelehnt; und die Datei
+   muss schon **exakt so heißen, wie sie im Repo stehen soll**, denn GitHub
+   übernimmt den Dateinamen unverändert. Deshalb je Ziel ein eigener
+   Unterordner mit einer `index.html` darin.
+4. Nach unten scrollen und „Commit changes" per Koordinate klicken. Der Klick
+   über die Element-Referenz löste das Formular nicht aus, der Koordinatenklick
+   schon.
+5. Löschen geht ebenso direkt:
+   `https://github.com/marc33880/lasuite-elabel/delete/main/<datei>`
+   (Leerzeichen als `%20`), dann „Commit changes…" und im Dialog bestätigen.
+
+Nach jedem Schritt über die GitHub-**Lese**verbindung gegenprüfen, ob die
+Dateigröße stimmt. Das ist der zuverlässigste Beleg, dass der Commit saß.
+
+**Arbeitsteilung damit:** Claude baut, prüft, lädt hoch und kontrolliert.
+Bei Marc bleiben zwei Dinge, die kein Werkzeug ersetzt: das **Etikettenbild**
+(kein Zugang zum CDN) und die **Weiterleitung bei United Domains**.
 
 **Der Container ist flüchtig.** Er wurde während der Erstellung schon einmal
 zurückgesetzt und alle Arbeitsdateien waren weg. Zwischenergebnisse deshalb
@@ -486,6 +545,14 @@ das HTML sie nicht erwähnt. Genau so gingen die beiden ersten Seiten am
 Nachbauen aus dem Quellcode auf. **Gegenprobe vor dem Ausliefern:** die fertige
 Datei muss `<div class="brand"><img` und `<figure><img` enthalten.
 
+**Beim Hochladen in einen Unterordner erst im Repo in den Ordner navigieren.**
+Wer auf der Startseite des Repos „Add file → Upload files" wählt und dort einen
+Ordnerinhalt hineinzieht, legt die Dateien in der **obersten Ebene** ab. Heißen
+sie `index.html`, überschreiben sie die Übersichtsseite, und die zweite wird zu
+`index (1).html`. Genau das passierte am 04.09.2026. Der sichere Weg ist die
+direkte Adresse
+`https://github.com/marc33880/lasuite-elabel/upload/main/<ordner>`.
+
 **Absolute Pfade brechen bei GitHub Pages.** Die Seiten liegen dort in einem
 Unterordner. Mit `/assets/…` wären Bilder und Schrift leer geblieben, und der
 Fehler wäre erst nach dem Hochladen aufgefallen.
@@ -535,10 +602,9 @@ diese Kopplungen festhält. Der fertige Text lag in `REGISTER-EINTRAG.md`.
 | **Nährwerte beruhen auf Platzhaltern** | Die `elabel`-Felder für Restzucker und Säure sind bei beiden Live-Weinen **leer**, beim Le Ton auch `alcohol_vol`. `fetch_shopify.py` wurde nie mit echtem Zugang ausgeführt; die Werte in `wines.json` (Zucker 1,5 g/l, Säure 5,4 g/l, Le Ton 13,0 % vol) stammen aus der Vorschau. Daraus werden Brennwert und Kohlenhydrate gerechnet. **Zu tun:** echte Analysewerte eintragen, Seiten neu bauen, hochladen. Der Alkoholgehalt des Le Ton ist der dringlichste Wert — er steht auch auf dem gedruckten Etikett. |
 | Story-Button rechtlich | Marc-Entscheidung 04.08.2026: bleibt drin. Der Leitfaden nennt „Website-Links" als Vermarktungszweck; die Zielseite hat keinen Verkaufsteil, liegt aber auf der Shop-Domain. Zum Entfernen: Block `.cta` und die Zeile `%(story)s` aus dem Template nehmen. |
 | `--gold-deep` in kleiner Typografie | ~3,35:1, unter WCAG AA. Bewusst nicht geändert. |
-| ~~Le Ton: Produktbild und Alternativtext~~ | **Erledigt am 04.09.2026:** `Le_Ton_blanc_Variation_5.jpg` ist gesetzt, Alternativtext angeglichen. |
 | Szenenbilder Louré | `Loure_freigestellt.png`, `Loure_Tischszene.png` — laut Marc nicht betroffen. |
-| Bauplan im Repo | Quellcode (`build.py`, Datenabruf, Nährwertrechnung) soll in einen eigenen Zweig, damit ein neuer Chat dort ansetzen kann. Noch offen. |
-| Schreibzugriff auf das Repo | **Geklärt am 04.09.2026: nein.** Beide Wege (`contents`-API und `git/trees`-API) antworten mit `403 Resource not accessible by integration`. Die GitHub-Verbindung kann nur lesen. Dateien müssen von Marc über die Web-Oberfläche hochgeladen werden. |
+| Schreibzugriff auf das Repo | **Geklärt am 04.09.2026: die GitHub-Verbindung kann nur lesen** (`403` auf beiden Wegen). Der Browser-Umweg in Abschnitt 4b ersetzt ihn vollständig. |
+| Zweig `source` ist flachgedrückt | Beim Hochladen ging die Ordnerstruktur verloren: die Schriftdateien liegen neben `build.py` statt in `assets/`, ebenso `worker.js` (gehört nach `src/`) und `deploy.yml` (gehört nach `.github/workflows/`). Zusätzlich liegt dort eine leere Datei `download`. Inhaltlich vollständig, aber vor einem `build.py`-Lauf muss einmal einsortiert werden. |
 
 ---
 
@@ -564,3 +630,18 @@ Relative Pfade wurden dadurch nötig; Jost wanderte ins Repo.
 **04.09.2026 — Veröffentlichung.** Etiketten korrigiert (1011 → 1211,
 1123 → 1389), Repo angelegt, Dateien hochgeladen, GitHub Pages eingeschaltet,
 Weiterleitungen bei United Domains gesetzt. Beide Seiten live und geprüft.
+
+**04.09.2026 — Abschluss.** Etiketten mit korrigierten Auflagen (1211/1389) in
+Shopify und im Repo getauscht. Beim ersten Upload landeten die Wein-Seiten
+versehentlich in der obersten Ebene und überschrieben die Übersichtsseite;
+repariert über Marcs Chrome, ohne dass er klicken musste — das Rezept dafür
+steht in Abschnitt 4b und macht den fehlenden Schreibzugriff wett. Beide
+Seiten anschließend über die gedruckten QR-Adressen im Browser geprüft:
+vollständig. Offen bleibt allein die Analysewert-Frage.
+
+**22.09.2026 — Eigene Adresse.** Die Seiten laufen nicht mehr unter
+`marc33880.github.io`, sondern unter `elabel.lasuite.vin`: CNAME bei United
+Domains, Custom Domain in GitHub Pages, HTTPS erzwungen, beide Weiterleitungen
+umgestellt. Damit liegt die gesamte Kette vom QR-Code bis zur Seite innerhalb
+von `lasuite.vin`, und am Hoster hängt nur noch ein einziger DNS-Eintrag.
+Geprüft: beide gedruckten Adressen laufen sauber auf die neue Zieladresse.

@@ -1,6 +1,6 @@
 # Adressen je Wein
 
-**Generiert von `build.py` — nicht von Hand pflegen.** Stand: 04.09.2026
+**Generiert von `build.py` — nicht von Hand pflegen.** Stand: 22.09.2026
 
 ## Was trage ich bei United Domains ein?
 
@@ -11,8 +11,8 @@ echte Adresse.
 
 | Wein | Von (steht im QR-Code auf dem Glas) | Nach (Weiterleitungsziel) |
 |---|---|---|
-| Louré 2024 | `https://loure2024-nutri.lasuite.vin/` | `https://marc33880.github.io/lasuite-elabel/loure2024-nutri/` |
-| Le Ton blanc Variation 5 | `https://le-ton-blanc-var5-nutri.lasuite.vin/` | `https://marc33880.github.io/lasuite-elabel/le-ton-blanc-var5-nutri/` |
+| Louré 2024 | `https://loure2024-nutri.lasuite.vin/` | `https://elabel.lasuite.vin/loure2024-nutri/` |
+| Le Ton blanc Variation 5 | `https://le-ton-blanc-var5-nutri.lasuite.vin/` | `https://elabel.lasuite.vin/le-ton-blanc-var5-nutri/` |
 
 Drei Dinge, die dabei schiefgehen koennen:
 

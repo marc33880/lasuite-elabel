@@ -12,9 +12,12 @@ eintragen.
 für weitere Weine bauen und veröffentlichen. Vorlage sind die zwei bestehenden
 Seiten im Repo `marc33880/lasuite-elabel`.
 
-**Du kannst nicht ins Repo schreiben** (403, geprüft) und **nicht ans
-Shopify-CDN** (kein Netzweg). Du baust und prüfst, Marc lädt hoch und setzt die
-Weiterleitung. Plane ein gebündeltes ZIP am Ende ein.
+**Die GitHub-Verbindung kann nur lesen** (403 auf beiden Schreibwegen) — **aber
+du kannst über Marcs Chrome hochladen.** Das ist am 04.09.2026 erprobt worden
+und ersetzt den Schreibzugriff vollständig; das genaue Rezept steht in
+Abschnitt 4b der Dokumentation. Bei Marc bleiben nur zwei Dinge: das
+**Etikettenbild** (kein Zugang zum Shopify-CDN) und die **Weiterleitung bei
+United Domains**.
 
 **Drei Stellen, an denen du anhalten und fragen musst:**
 
@@ -64,8 +67,11 @@ es zu begründen und nachzufragen.
 * **Live:** `loure2024-nutri` und `le-ton-blanc-var5-nutri`. Diese beiden
   **nicht anfassen** — ihre Adressen sind auf Glas gedruckt.
 * **Adressschema:**
-  `https://<slug>.lasuite.vin/` → `https://marc33880.github.io/lasuite-elabel/<slug>/`
-  Die Weiterleitung liegt bei United Domains und wird von Marc gesetzt.
+  `https://<slug>.lasuite.vin/` → `https://elabel.lasuite.vin/<slug>/`
+  `elabel.lasuite.vin` ist die eigene Adresse der Seiten (CNAME auf GitHub
+  Pages, seit 22.09.2026). Die `github.io`-Adresse kommt nirgends mehr vor —
+  nenne sie auch nicht in Anleitungen für Marc. Die Weiterleitung je Wein liegt
+  bei United Domains und wird von Marc gesetzt.
 * Die bestehenden Seiten sind die Referenz für Gestaltung und Aufbau. Hol dir
   eine davon aus dem Repo und nimm sie als Vorlage, statt neu zu gestalten.
 
@@ -84,7 +90,10 @@ mitten im Projekt zurückgesetzt und alle Arbeitsdateien waren weg. Lege deshalb
 jedes Zwischenergebnis, das nicht verlorengehen darf, zeitnah an Marc aus —
 ins Repo schreiben kannst du nicht. Der Quellcode liegt im Zweig `source` des
 Repos und ist über die Leseverbindung erreichbar; hol ihn dir von dort, statt
-Marc um einen Anhang zu bitten.
+Marc um einen Anhang zu bitten. **Achtung:** dieser Zweig ist flachgedrückt —
+die Schriftdateien liegen neben `build.py` statt in `assets/`, `worker.js`
+gehört nach `src/`, `deploy.yml` nach `.github/workflows/`. Vor einem
+`build.py`-Lauf einmal einsortieren.
 
 ## Reihenfolge
 
@@ -95,17 +104,14 @@ Marc um einen Anhang zu bitten.
 | 3 | Etikettenbild von Marc anfordern | **warten** |
 | 4 | Flaschenzahl gegen das Etikett prüfen | **fragen, wenn abweichend** |
 | 5 | Seite bauen (erst mit Bildern in `assets/`) und prüfen | |
-| 6 | ZIP ausliefern, Marc lädt hoch, Struktur nachprüfen | |
+| 6 | Selbst über Marcs Chrome ins Repo hochladen, Struktur nachprüfen | |
 | 7 | Weiterleitung: exakte Zeile geben | **Marc macht es** |
 | 8 | Live-Adresse abrufen und gegenlesen | |
 | 9 | Dokumentation fortschreiben und ausliefern | |
 
-**Schritt 0 entfällt.** Der Schreibzugriff wurde am 04.09.2026 geprüft und ist
-**nicht vorhanden** — sowohl die `contents`-API als auch `git/trees` antworten
-mit `403 Resource not accessible by integration`. Versuch es nicht erneut.
-Du lieferst die fertigen Dateien als ZIP an Marc, er lädt sie über die
-GitHub-Web-Oberfläche hoch. Plane das von Anfang an so ein: **ein** gebündeltes
-Paket am Ende statt vieler Einzelabgaben.
+**Schritt 0 entfällt.** Der GitHub-Schreibzugriff wurde am 04.09.2026 geprüft
+und ist nicht vorhanden (`403` auf `contents` und auf `git/trees`). Versuch es
+nicht erneut — nimm gleich den Browser-Weg aus Abschnitt 4b der Dokumentation.
 
 **Schritt 1 — Daten holen.** Für jeden Wein über Shopify: `elabel.slug`,
 `elabel.zutaten` (inkl. en/fr-Übersetzungen), `elabel.alcohol_vol`,
@@ -143,15 +149,19 @@ Seiten ohne Wortmarke und Etikett live. Prüfe vor dem Ausliefern:
 * Limitierungs-Block ohne Flexbox (siehe Fallstrick in der Dokumentation)
 * Nährwerte gegengerechnet
 
-**Schritt 6 — Ausliefern.** Ein ZIP mit `<slug>/index.html`,
-`assets/<slug>.jpg` und der aktualisierten `index.html` (Fallback-Übersicht,
-neuer Wein ergänzt). Sag Marc dazu: entpacken, im Repo *Add file → Upload
-files*, den **Inhalt** des Ordners hineinziehen — nicht den Ordner selbst,
-sonst entsteht eine Ebene zu viel. Prüfe danach über die GitHub-Leseverbindung,
-ob die Struktur stimmt, **bevor** er die Weiterleitung setzt.
+**Schritt 6 — Hochladen.** Über Marcs Chrome, nach dem Rezept in Abschnitt 4b:
+je Zieldatei ein eigener Ordner im Container mit der Datei unter ihrem
+**endgültigen Namen**, dann die Upload-Adresse des Zielordners direkt aufrufen.
+Hochzuladen sind `<slug>/index.html`, `assets/<slug>.jpg` und die aktualisierte
+`index.html` der Übersicht. Prüfe nach jedem Commit über die
+GitHub-Leseverbindung die Dateigröße, **bevor** Marc die Weiterleitung setzt.
+Wenn der Browser nicht verbunden ist, liefere stattdessen ein ZIP und sag ihm:
+im Repo **erst in den Zielordner navigieren**, dann *Add file → Upload files* —
+sonst landen die Dateien in der obersten Ebene und überschreiben die
+Übersichtsseite.
 
 **Schritt 7 — Weiterleitung.** Gib Marc die exakte Zeile für United Domains:
-Subdomain `<slug>`, Ziel `https://marc33880.github.io/lasuite-elabel/<slug>/`,
+Subdomain `<slug>`, Ziel `https://elabel.lasuite.vin/<slug>/`,
 Typ HTTP-Weiterleitung, **keine** Frame-Weiterleitung, Schrägstrich am Ende.
 Das macht er selbst — sein Registrar-Konto, und eine falsche Weiterleitung
 träfe eine gedruckte Adresse.
